@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 const url = import.meta.env.VITE_SIGNUP_ENPOINT!
 
 const formSchema = z.object({
@@ -28,9 +29,8 @@ const formSchema = z.object({
 const Signup = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>("");
     const { toast } = useToast()
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -51,61 +51,35 @@ const Signup = () => {
                 lastName,
                 phone_number: phoneNumber
             })
-            setIsError(false);
-            setMessage(res.data.message);
-        } catch (error : any) {
+            toast({
+                variant: "default",
+                title: res.data.message
+            })
+            navigate("/signin")
+        } catch (error: any) {
             console.log(error);
-            setIsError(true);
-            setMessage(error.response?.data?.message);
+            toast({
+                variant: "destructive",
+                title: error.response.data.message
+            })
         }
         setIsLoading(false);
-        console.log(message);
-        toast({
-            variant: isError ? "destructive" : "default",
-            title: message
-        })
     }
 
     return (
-        <div className="bg-[#010100] min-h-screen flex flex-col space-y-10 items-center justify-center">
-            <span className="text-white font-title2 font-semibold text-3xl">Enter your details to continue</span>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[35%] p-4">
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="form-labels font-title2">Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] " />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="form-labels font-title2">Password</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="flex space-x-5">
+        <>
+            <div className="bg-[#010100] min-h-screen flex flex-col space-y-10 items-center justify-center">
+                <span className="text-white font-title2 font-semibold text-3xl">Enter your details to continue</span>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[35%] p-4">
                         <FormField
                             control={form.control}
-                            name="firstName"
+                            name="email"
                             render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel className="form-labels font-title2">First Name</FormLabel>
+                                <FormItem>
+                                    <FormLabel className="form-labels font-title2">Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="John" {...field} className="bg-[#1A1C20] text-white border border-[#363A3D] font-title2" />
+                                        <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] " />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -113,35 +87,67 @@ const Signup = () => {
                         />
                         <FormField
                             control={form.control}
-                            name="lastName"
+                            name="password"
                             render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel className="form-labels font-title2">Last Name</FormLabel>
+                                <FormItem>
+                                    <FormLabel className="form-labels font-title2">Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Doe" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                        <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                    </div>
-                    <FormField
-                        control={form.control}
-                        name="phoneNumber"
-                        render={({ field }) => (
-                            <FormItem className="w-full">
-                                <FormLabel className="form-labels font-title2">Phone Number</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button disabled={isLoading} className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500" type="submit">Submit</Button>
-                </form>
-            </Form>
-        </div>
+                        <div className="flex space-x-5">
+                            <FormField
+                                control={form.control}
+                                name="firstName"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel className="form-labels font-title2">First Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="John" {...field} className="bg-[#1A1C20] text-white border border-[#363A3D] font-title2" />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="lastName"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel className="form-labels font-title2">Last Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Doe" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel className="form-labels font-title2">Phone Number</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button disabled={isLoading} className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500" type="submit">Submit</Button>
+                        <div className="bg-[#363a3d] w-full h-[0.5px]"></div>
+                        <span className="text-white hover:underline hover:cursor-pointer" onClick={() => {navigate("/signin")}}>Login</span>
+                    </form>
+                </Form>
+               
+            </div>
+        </>
+
     )
 }
 
