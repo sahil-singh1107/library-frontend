@@ -7,9 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
+import UpdatebookForm from "./UpdatebookForm"
 
 
 const url1 = import.meta.env.VITE_READ_BOOKS
@@ -24,6 +33,8 @@ interface Book {
 const BookTable = () => {
 
   const [books, setBooks] = useState<Book[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedBook, setSelectedBook] = useState<Book>({title: "", author: "", publicationYear: ""});
   const { toast } = useToast()
 
   useEffect(() => {
@@ -44,7 +55,7 @@ const BookTable = () => {
     getBooks();
   }, [])
 
-  const handleDelete = async (title: string) => {
+  const handleDelete = async (title: string | undefined) => {
     try {
       const res = await axios.post(url2, {
         adminPin: "110703",
@@ -67,29 +78,46 @@ const BookTable = () => {
   }
 
   return (
-    <Table className="overflow-y-auto mt-6 border rounded-md">
-      <TableHeader>
-        <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10]">
-          <TableHead className="text-white font-title2 p-5">Title</TableHead>
-          <TableHead className="text-white font-title2">Author</TableHead>
-          <TableHead className="text-white font-title2">Publication Year</TableHead>
-          <TableHead className="text-white font-title2">Actions</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {
-          books.map((book, i) => (
-            <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
-              <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
-              <TableCell className="text-white font-title2">{book.author}</TableCell>
-              <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
-              <TableCell className="text-[#F37877] hover:cursor-pointer" onClick={() => handleDelete(book.title)}>Delete</TableCell>
-              <TableCell className="text-[#24AE7C] hover:cursor-pointer">Update</TableCell>
-            </TableRow>
-          ))
-        }
-      </TableBody>
-    </Table>
+    <>
+      <Dialog open={isOpen}>
+        <DialogContent className="bg-black border-[#363A3D]">
+          <DialogHeader>
+            <DialogTitle className="text-white">Update Book</DialogTitle>
+            <DialogDescription className="text-white">
+              Enter the following details to update the book
+            </DialogDescription>
+          </DialogHeader>
+          <UpdatebookForm setIsOpen={setIsOpen} selectedBook = {selectedBook} />
+        </DialogContent>
+      </Dialog>
+      <Table className="overflow-y-auto mt-6 border rounded-md">
+        <TableHeader>
+          <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10]">
+            <TableHead className="text-white font-title2 p-5">Title</TableHead>
+            <TableHead className="text-white font-title2">Author</TableHead>
+            <TableHead className="text-white font-title2">Publication Year</TableHead>
+            <TableHead className="text-white font-title2">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {
+            books.map((book, i) => (
+              <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
+                <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
+                <TableCell className="text-white font-title2">{book.author}</TableCell>
+                <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
+                <TableCell className="text-[#F37877] hover:cursor-pointer" onClick={() => handleDelete(book.title)}>Delete</TableCell>
+                <TableCell className="text-[#24AE7C] hover:cursor-pointer" onClick={() => {
+                  setSelectedBook(book);
+                  setIsOpen(true)
+                }}>Update</TableCell>
+              </TableRow>
+            ))
+          }
+        </TableBody>
+      </Table>
+
+    </>
 
   )
 }
