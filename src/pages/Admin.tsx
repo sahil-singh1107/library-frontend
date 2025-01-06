@@ -10,20 +10,11 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import BookForm from "@/components/BookForm";
-
-
-const url = import.meta.env.VITE_READ_TRANSACTION;
+import BookTable from "@/components/BookTable";
 
 const Admin = () => {
     const [activeSection, setActiveSection] = useState<'books' | 'requests'>('books');
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    // useEffect(() => {
-    //     async function getTransactions() {
-    //         const res = await axios.get(url);
-    //         console.log(res);
-    //     }
-    //     getTransactions();
-    // }, []);
 
     return (
         <>
@@ -35,7 +26,7 @@ const Admin = () => {
                             Enter the following details to add a book
                         </DialogDescription>
                     </DialogHeader>
-                    <BookForm setIsOpen = {setIsOpen} />
+                    <BookForm setIsOpen={setIsOpen} />
                 </DialogContent>
             </Dialog>
 
@@ -66,13 +57,14 @@ const Admin = () => {
                     </div>
                     {
                         activeSection === "books" && (
-                            <div className="">
-                                <Button className="text-white bg-transparent border rounded-md border-[#0C0E10]" onClick={() => {setIsOpen(true)}}>Add Book</Button>
-
+                            <div className="flex flex-col items-center space-y-6">
+                                <Button className="text-white bg-transparent border rounded-md border-[#0C0E10]" onClick={() => { setIsOpen(true) }}>Add Book</Button>
+                                <div className="flex justify-center w-[70%]">
+                                    <BookTable />
+                                </div>
                             </div>
                         )
                     }
-
                 </div>
             </div>
         </>
