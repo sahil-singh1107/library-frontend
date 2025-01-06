@@ -1,0 +1,148 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { any, z } from "zod"
+import { Button } from "@/components/ui/button"
+import axios from "axios"
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
+import { useState } from "react"
+const url = import.meta.env.VITE_SIGNUP_ENPOINT!
+
+const formSchema = z.object({
+    email: z.string().email({ message: "Enter a valid email" }),
+    password: z.string().min(8, { message: "Password must contain 8 characters" }),
+    firstName: z.string().min(3, { message: "First name should be atleast 3 characters long" }),
+    lastName: z.string().min(3, { message: "Last name should be atleast 3 characters long" }),
+    phoneNumber: z.string().min(10, { message: "Enter a valid phone number" }).max(10, { message: "Enter a valid phone number" })
+})
+
+const Signup = () => {
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>("");
+    const { toast } = useToast()
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+
+        },
+    })
+
+
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const { email, password, firstName, lastName, phoneNumber } = values
+        try {
+            setIsLoading(true);
+            const res = await axios.post(url, {
+                email,
+                password,
+                firstName,
+                lastName,
+                phone_number: phoneNumber
+            })
+            setIsError(false);
+            setMessage(res.data.message);
+        } catch (error : any) {
+            console.log(error);
+            setIsError(true);
+            setMessage(error.response?.data?.message);
+        }
+        setIsLoading(false);
+        console.log(message);
+        toast({
+            variant: isError ? "destructive" : "default",
+            title: message
+        })
+    }
+
+    return (
+        <div className="bg-[#010100] min-h-screen flex flex-col space-y-10 items-center justify-center">
+            <span className="text-white font-title2 font-semibold text-3xl">Enter your details to continue</span>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[35%] p-4">
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="form-labels font-title2">Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] " />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel className="form-labels font-title2">Password</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="flex space-x-5">
+                        <FormField
+                            control={form.control}
+                            name="firstName"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel className="form-labels font-title2">First Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="John" {...field} className="bg-[#1A1C20] text-white border border-[#363A3D] font-title2" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="lastName"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel className="form-labels font-title2">Last Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Doe" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                            <FormItem className="w-full">
+                                <FormLabel className="form-labels font-title2">Phone Number</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button disabled={isLoading} className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500" type="submit">Submit</Button>
+                </form>
+            </Form>
+        </div>
+    )
+}
+
+export default Signup

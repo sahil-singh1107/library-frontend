@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar"
 
 const Landing = () => {
+
+
   return (
     <div className="relative bg-[#010100] h-screen text-center">
       <Navbar />
