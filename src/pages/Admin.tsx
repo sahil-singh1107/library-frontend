@@ -38,7 +38,7 @@ const Admin = () => {
 
                 <div className="flex flex-col space-y-6 px-[5%] pb-12 xl:space-y-12 xl:px-12">
                     <section className="w-full space-y-4">
-                        <h1 className="font-bold text-2xl font-title2 text-white">Welcome</h1>
+                        <h1 className="font-bold text-2xl font-title2 text-white typing-effect">Welcome</h1>
                         <p className="text-xl font-title2 text-[#ABB9C5]">Start the day with adding new books</p>
                     </section>
                     <section>

@@ -71,7 +71,7 @@ const Signup = () => {
 
   return (
     <div className="bg-[#010100] min-h-screen flex flex-col items-center justify-center space-y-10">
-      <span className="text-white font-title2 font-semibold text-3xl">
+      <span className="text-white font-title2 font-semibold text-3xl typing-effect transition duration-75">
         Enter your details to continue
       </span>
       <Form {...form}>
@@ -89,7 +89,7 @@ const Signup = () => {
                   <Input
                     placeholder="johndoe@gmail.com"
                     {...field}
-                    className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] hover:translate-y-[-10%]"
+                    className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] hover:translate-y-[-10%] hover:ring-2 hover:ring-yellow-500 transition-all duration-300"
                   />
                 </FormControl>
                 <FormMessage />
@@ -106,8 +106,7 @@ const Signup = () => {
                   <Input
                     placeholder=""
                     {...field}
-                    className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]"
-                    
+                    className="bg-[#1A1C20] hover:ring-2 hover:ring-yellow-500 text-white border-[#363A3D] font-title2 hover:translate-y-[-10%] transition-all duration-300"
                   />
                 </FormControl>
                 <FormMessage />
@@ -125,7 +124,7 @@ const Signup = () => {
                     <Input
                       placeholder="John"
                       {...field}
-                      className="bg-[#1A1C20] text-white border border-[#363A3D] font-title2 hover:translate-y-[-10%]"
+                      className="bg-[#1A1C20] hover:ring-2 hover:ring-yellow-500 text-white border border-[#363A3D] font-title2 hover:translate-y-[-10%] transition-all duration-300"
                     />
                   </FormControl>
                   <FormMessage />
@@ -142,7 +141,7 @@ const Signup = () => {
                     <Input
                       placeholder="Doe"
                       {...field}
-                      className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]"
+                      className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%] hover:ring-2 hover:ring-yellow-500 transition-all duration-300"
                     />
                   </FormControl>
                   <FormMessage />
@@ -160,7 +159,7 @@ const Signup = () => {
                   <Input
                     placeholder=""
                     {...field}
-                    className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]"
+                    className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%] hover:ring-2 hover:ring-yellow-500 transition-all duration-300"
                   />
                 </FormControl>
                 <FormMessage />

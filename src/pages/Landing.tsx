@@ -1,18 +1,32 @@
-import Navbar from "@/components/Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "@/components/Navbar";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/dashboard");
     }
-  }, []);
+
+    const handleMouseMove = (e : any) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [navigate]);
 
   return (
-    <div className="relative bg-[#010100] h-screen text-center">
+    <div
+      className="relative bg-dotted-infinite h-screen text-center"
+      style={{
+        backgroundPosition: `${mousePosition.x / 10}px ${mousePosition.y / 10}px`,
+      }}
+    >
       <Navbar />
       <div className="mt-12 flex flex-col relative z-10">
         <div className="text-white text-center font-bold text-6xl font-title2 space-x-2">

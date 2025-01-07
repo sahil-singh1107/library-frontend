@@ -6,7 +6,7 @@ import { FaBook } from "react-icons/fa";
 import axios from "axios";
 
 const url1 = import.meta.env.VITE_READ_BOOKS;
-const url2 = import.meta.env.VITE_MAKE_TRANSACTION
+const url2 = import.meta.env.VITE_MAKE_TRANSACTION;
 
 import {
     Table,
@@ -33,6 +33,7 @@ const AllBooks = () => {
     const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
     const [token, setToken] = useRecoilState(tokenState);
     const { toast } = useToast();
+    const [loading, setLoading] = useState<boolean>(false); // Loading state for fetching books
 
     const today = new Date().toLocaleDateString("en-US", {
         year: "numeric",
@@ -42,6 +43,7 @@ const AllBooks = () => {
 
     useEffect(() => {
         async function getBooks() {
+            setLoading(true); // Show loading spinner
             try {
                 const res = await axios.get(url1);
                 const formattedBooks = res.data.message.map((book: any) => ({
@@ -53,6 +55,13 @@ const AllBooks = () => {
                 setBooks(formattedBooks);
             } catch (error) {
                 console.error("Error fetching books:", error);
+                toast({
+                    title: "Error",
+                    description: "Failed to fetch books. Please try again later.",
+                    variant: "destructive",
+                });
+            } finally {
+                setLoading(false); // Hide loading spinner after fetching
             }
         }
         getBooks();
@@ -60,6 +69,7 @@ const AllBooks = () => {
 
     async function borrowBook(title: string) {
         try {
+            setLoading(true); // Show loading when making the request
             await axios.post(url2, {
                 token,
                 title,
@@ -67,7 +77,7 @@ const AllBooks = () => {
             toast({
                 variant: "default",
                 title: "Success!",
-                description: "Wait for an admin to approve the request",
+                description: "Wait for an admin to approve the request.",
             });
         } catch (error) {
             toast({
@@ -76,10 +86,11 @@ const AllBooks = () => {
                 variant: "destructive",
             });
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
 
-    // Filter books based on the search query
     const filteredBooks = books.filter((book) =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -92,13 +103,15 @@ const AllBooks = () => {
                         className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2"
                         placeholder="Search by title..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
+                        onChange={(e) => setSearchQuery(e.target.value)} 
                     />
                     <Button disabled={true} className="w-[30%] bg-[#1A1C20] border border-[#2F3336]">
                         <span className="text-white text-sm font-title2">{today}</span>
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                 </div>
+
+
                 <Table className="mt-10 border border-[#363A3D] rounded-md">
                     <TableHeader>
                         <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10] border-[#363A3D]">
@@ -110,7 +123,10 @@ const AllBooks = () => {
                     </TableHeader>
                     <TableBody>
                         {filteredBooks.map((book, i) => (
-                            <TableRow key={i} className="bg-[#131718] hover:bg-[#131718] border-[#363A3D]">
+                            <TableRow
+                                key={i}
+                                className="bg-[#131718] hover:bg-[#131718] border-[#363A3D]"
+                            >
                                 <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
                                 <TableCell className="text-white font-title2">{book.author}</TableCell>
                                 <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
@@ -128,8 +144,8 @@ const AllBooks = () => {
                         ))}
                     </TableBody>
                 </Table>
-            </div>
 
+            </div>
         </div>
     );
 };

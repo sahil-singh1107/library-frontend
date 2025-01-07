@@ -121,7 +121,7 @@ const Signin = () => {
             </Dialog>
 
             <div className="bg-[#010100] min-h-screen flex flex-col space-y-10 items-center justify-center">
-                <span className="text-white font-title2 font-semibold text-3xl">Enter your details to Login</span>
+                <span className="text-white font-title2 font-semibold text-3xl typing-effect transition duration-75">Enter your details to Login</span>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[35%] p-4">
                         <FormField
