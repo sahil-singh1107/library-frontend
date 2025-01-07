@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import BookForm from "@/components/BookForm";
 import BookTable from "@/components/BookTable";
+import RequestsTable from "@/components/RequestsTable";
 
 const Admin = () => {
     const [activeSection, setActiveSection] = useState<'books' | 'requests'>('books');
@@ -56,13 +57,15 @@ const Admin = () => {
                         </span>
                     </div>
                     {
-                        activeSection === "books" && (
+                        activeSection === "books" ? (
                             <div className="flex flex-col items-center space-y-6">
                                 <Button className="text-white bg-transparent border rounded-md border-[#0C0E10]" onClick={() => { setIsOpen(true) }}>Add Book</Button>
                                 <div className="flex justify-center w-[70%]">
                                     <BookTable />
                                 </div>
                             </div>
+                        ) : (
+                            <RequestsTable/>
                         )
                     }
                 </div>
