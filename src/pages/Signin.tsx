@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const url = import.meta.env.VITE_SIGNUP_ENPOINT!;
+const url = import.meta.env.VITE_SIGNIN_ENPOINT!;
 
 const formSchema = z.object({
     email: z.string().email({ message: "Enter a valid email" }),
@@ -61,6 +61,8 @@ const Signin = () => {
                 variant: "default",
                 title: res.data.message,
             });
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("email", res.data.email);
             navigate("/");
         } catch (error: any) {
             console.log(error);

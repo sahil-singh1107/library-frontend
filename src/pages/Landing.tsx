@@ -1,7 +1,16 @@
 import Navbar from "@/components/Navbar"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 
 const Landing = () => {
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/dashboard")
+    }
+  }, [])
 
   return (
     <div className="relative bg-[#010100] h-screen text-center">
