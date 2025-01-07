@@ -7,6 +7,7 @@ const DashBoard = () => {
 
     const [token, setToken] = useState<string | null>()
     const [email, setEmail] = useState<string | null>()
+    const [page, setPage] = useState<string>("mybooks");
 
     const navigate = useNavigate()
 
@@ -20,8 +21,8 @@ const DashBoard = () => {
 
   return (
     <div className="h-screen bg-[#010100] w-full flex ">
-        <Sidebar email={email} />
-        <Display/>
+        <Sidebar email={email} setPage={setPage} />
+        <Display page={page} token={token} />
     </div>
   )
 }
