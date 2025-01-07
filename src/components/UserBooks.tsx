@@ -24,11 +24,13 @@ interface Book {
     publicationYear: string;
 }
 
+const url = import.meta.env.VITE_READ_USER_BOOKS
+const url1 = import.meta.env.VITE_RETURN_TRANSACTION
+
 const UserBooks = () => {
-
     const [token, setToken] = useRecoilState(tokenState);
-
     const [books, setBooks] = useState<Book[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const { toast } = useToast();
 
     const today = new Date().toLocaleDateString("en-US", {
@@ -39,7 +41,7 @@ const UserBooks = () => {
 
     useEffect(() => {
         if (!token) {
-            const storedToken = localStorage.getItem('token');
+            const storedToken = localStorage.getItem("token");
             if (storedToken) {
                 setToken(storedToken);
             }
@@ -47,8 +49,8 @@ const UserBooks = () => {
         }
         async function getBooks() {
             try {
-                const res = await axios.post("http://localhost:3000/api/v1/userbooks", {
-                    token
+                const res = await axios.post(url, {
+                    token,
                 });
                 const formattedBooks = res.data.message.map((book: any) => ({
                     title: book.title,
@@ -65,10 +67,10 @@ const UserBooks = () => {
 
     async function returnBook(title: string) {
         try {
-            await axios.put("http://localhost:3000/api/v1/returntransaction", {
+            await axios.put(url1, {
                 token,
-                title
-            })
+                title,
+            });
             toast({
                 title: "Success!",
                 description: "Book successfully returned",
@@ -83,10 +85,19 @@ const UserBooks = () => {
         }
     }
 
+    const filteredBooks = books.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="mt-4">
             <div className="flex justify-between p-6">
-                <Input className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2" />
+                <Input
+                    className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2"
+                    placeholder="Search by title..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
                 <Button disabled={true} className="w-[30%] bg-[#1A1C20] border border-[#2F3336]">
                     <span className="text-white text-sm font-title2">{today}</span>
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -101,15 +112,16 @@ const UserBooks = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {books.map((book, i) => (
+                    {filteredBooks.map((book, i) => (
                         <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
                             <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
                             <TableCell className="text-white font-title2">{book.author}</TableCell>
                             <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
                             <TableCell className="text-white font-title2">
-                                <FaBook onClick={() => {
-                                    returnBook(book.title)
-                                }} />
+                                <FaBook
+                                    className="text-green-400 cursor-pointer"
+                                    onClick={() => returnBook(book.title)}
+                                />
                             </TableCell>
                         </TableRow>
                     ))}

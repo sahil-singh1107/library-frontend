@@ -21,7 +21,7 @@ const Display = () => {
                 ) : (
                     <div className='mt-10 ml-10 flex flex-col'>
                         <p className='text-white text-6xl font-title2'>List of your Books</p>
-                        <p className='text-white mt-3'>Return them on time</p>
+                        <p className='text-white mt-3'>Please return them on time</p>
                         <Separator className="mt-4 border border-[#A1A0AB]" />
                         <UserBooks />
                     </div>

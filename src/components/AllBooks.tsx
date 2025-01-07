@@ -6,6 +6,7 @@ import { FaBook } from "react-icons/fa";
 import axios from "axios";
 
 const url1 = import.meta.env.VITE_READ_BOOKS;
+const url2 = import.meta.env.VITE_MAKE_TRANSACTION
 
 import {
     Table,
@@ -29,7 +30,8 @@ interface Book {
 
 const AllBooks = () => {
     const [books, setBooks] = useState<Book[]>([]);
-    const [token, setToken] = useRecoilState(tokenState)
+    const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
+    const [token, setToken] = useRecoilState(tokenState);
     const { toast } = useToast();
 
     const today = new Date().toLocaleDateString("en-US", {
@@ -58,10 +60,10 @@ const AllBooks = () => {
 
     async function borrowBook(title: string) {
         try {
-            await axios.post("http://localhost:3000/api/v1/maketransaction", {
+            await axios.post(url2, {
                 token,
-                title
-            })
+                title,
+            });
             toast({
                 title: "Success!",
                 description: "Wait for an admin to approve the request",
@@ -76,10 +78,20 @@ const AllBooks = () => {
         }
     }
 
+    // Filter books based on the search query
+    const filteredBooks = books.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="mt-4">
             <div className="flex justify-between p-6">
-                <Input className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2" />
+                <Input
+                    className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2"
+                    placeholder="Search by title..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
+                />
                 <Button disabled={true} className="w-[30%] bg-[#1A1C20] border border-[#2F3336]">
                     <span className="text-white text-sm font-title2">{today}</span>
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -95,15 +107,20 @@ const AllBooks = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {books.map((book, i) => (
+                    {filteredBooks.map((book, i) => (
                         <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
                             <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
                             <TableCell className="text-white font-title2">{book.author}</TableCell>
                             <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
                             <TableCell className="text-white font-title2">
-                                <FaBook onClick={() => {
-                                    borrowBook(book.title)
-                                }} className={book.availabilityStatus ? "text-green-500 hover:cursor-pointer" : "text-gray-500"} />
+                                <FaBook
+                                    onClick={() => borrowBook(book.title)}
+                                    className={
+                                        book.availabilityStatus
+                                            ? "text-green-500 hover:cursor-pointer"
+                                            : "text-gray-500"
+                                    }
+                                />
                             </TableCell>
                         </TableRow>
                     ))}

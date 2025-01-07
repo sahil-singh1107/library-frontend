@@ -31,6 +31,8 @@ const formSchema = z.object({
     publicationYear: z.string().min(4, { message: "Please enter a valid year" }),
 })
 
+const url = import.meta.env.VITE_UPDATE_BOOK
+
 const UpdatebookForm = ({ setIsOpen, selectedBook }: { setIsOpen: any, selectedBook: Book }) => {
 
     const { toast } = useToast();
@@ -52,7 +54,7 @@ const UpdatebookForm = ({ setIsOpen, selectedBook }: { setIsOpen: any, selectedB
         if (values.publicationYear !== selectedBook.publicationYear) updatedBook.publicationYear = values.publicationYear;
 
         try {
-            await axios.put("http://localhost:3000/api/v1/updateBook", {
+            await axios.put(url, {
                 adminPin: "110703",
                 newAuthor: updatedBook.author,
                 newTitle: updatedBook.title,

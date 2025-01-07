@@ -16,6 +16,9 @@ interface Request {
     title: string
 }
 
+const url = import.meta.env.VITE_READ_TRANSACTION
+const url2 = import.meta.env.VITE_UPDATE_TRANSACTION
+
 const RequestsTable = () => {
 
     const [requests, setRequests] = useState<Request[]>([]);
@@ -24,7 +27,7 @@ const RequestsTable = () => {
     useEffect(() => {
         async function getBooks() {
             try {
-                const res = await axios.get("http://localhost:3000/api/v1/readtransaction");
+                const res = await axios.get(url);
                 const formattedRequests = res.data.message.map((request: any) => ({
                     title: request.book.title,
                     email: request.user.email
@@ -40,7 +43,7 @@ const RequestsTable = () => {
 
     async function handleUpdate (title : string, email : string) {
         try {
-            await axios.put("http://localhost:3000/api/v1/updatetransaction", {
+            await axios.put(url2, {
                 adminPin : "110703",
                 email,
                 title
