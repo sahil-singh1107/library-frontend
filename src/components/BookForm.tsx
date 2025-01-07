@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast"
 
 const url = import.meta.env.VITE_ADD_BOOK
 
+const pin = import.meta.env.VITE_ADMIN_PIN
 const formSchema = z.object({
     title: z.string().min(2, {
         message: "Title must be at least 2 characters.",
@@ -33,7 +34,7 @@ const BookForm = ({ setIsOpen }: { setIsOpen: any }) => {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const res = await axios.post(url, {
-                adminPin : "110703",
+                adminPin : pin,
                 title : values.title,
                 author : values.author,
                 publicationYear: values.publicationYear
