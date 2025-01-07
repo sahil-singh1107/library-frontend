@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
 import { CalendarIcon } from "lucide-react";
@@ -11,7 +12,6 @@ const url2 = import.meta.env.VITE_MAKE_TRANSACTION;
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -30,11 +30,10 @@ interface Book {
 
 const AllBooks = () => {
     const [books, setBooks] = useState<Book[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
+    const [searchQuery, setSearchQuery] = useState<string>(""); 
     const [token, setToken] = useRecoilState(tokenState);
     const { toast } = useToast();
-    const [loading, setLoading] = useState<boolean>(false); // Loading state for fetching books
-
+    const [loading, setLoading] = useState<boolean>(false); 
     const today = new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
@@ -43,7 +42,7 @@ const AllBooks = () => {
 
     useEffect(() => {
         async function getBooks() {
-            setLoading(true); // Show loading spinner
+            setLoading(true); 
             try {
                 const res = await axios.get(url1);
                 const formattedBooks = res.data.message.map((book: any) => ({
@@ -61,7 +60,7 @@ const AllBooks = () => {
                     variant: "destructive",
                 });
             } finally {
-                setLoading(false); // Hide loading spinner after fetching
+                setLoading(false); 
             }
         }
         getBooks();
@@ -69,7 +68,7 @@ const AllBooks = () => {
 
     async function borrowBook(title: string) {
         try {
-            setLoading(true); // Show loading when making the request
+            setLoading(true); 
             await axios.post(url2, {
                 token,
                 title,

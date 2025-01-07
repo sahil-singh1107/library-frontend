@@ -4,7 +4,6 @@ import { TiTick } from "react-icons/ti";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,

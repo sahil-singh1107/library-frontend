@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
-    const [email, setEmail] = useRecoilState(emailState);
+    const [email, ] = useRecoilState(emailState);
     const [page, setPage] = useRecoilState(pageState);
     const navigate = useNavigate();
 

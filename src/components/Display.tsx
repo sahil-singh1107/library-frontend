@@ -6,7 +6,7 @@ import { pageState } from "@/store/atoms/atoms"
 
 const Display = () => {
 
-    const [page, setPage] = useRecoilState(pageState)
+    const [page, ] = useRecoilState(pageState)
 
     return (
         <div className='w-[85%] bg-[#010100] '>

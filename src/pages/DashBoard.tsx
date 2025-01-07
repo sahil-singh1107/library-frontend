@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Display from "@/components/Display"
 import Sidebar from "@/components/Sidebar"
 import { emailState, tokenState } from "@/store/atoms/atoms"

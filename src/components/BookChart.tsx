@@ -2,8 +2,6 @@ import { Label, Pie, PieChart } from "recharts"
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -13,7 +11,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 
 const url = import.meta.env.VITE_BOOK_CHART
