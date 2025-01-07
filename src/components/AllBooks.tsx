@@ -66,7 +66,8 @@ const AllBooks = () => {
         getBooks();
     }, []);
 
-    async function borrowBook(title: string) {
+    async function borrowBook(title: string, availabilityStatus : boolean) {
+        if (!availabilityStatus) return;
         try {
             setLoading(true); 
             await axios.post(url2, {
@@ -131,7 +132,7 @@ const AllBooks = () => {
                                 <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
                                 <TableCell className="text-white font-title2">
                                     <FaBook
-                                        onClick={() => borrowBook(book.title)}
+                                        onClick={() => borrowBook(book.title, book.availabilityStatus)}
                                         className={
                                             book.availabilityStatus
                                                 ? "text-green-500 hover:cursor-pointer"
