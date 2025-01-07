@@ -50,7 +50,8 @@ const RequestsTable = () => {
             })
             toast({
                 variant: "default",
-                value : "Request approved successfully"
+                value : "Request approved successfully",
+                description: "User can now access the book"
             })
         } catch (error) {
             toast({
@@ -67,6 +68,7 @@ const RequestsTable = () => {
                 <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10] border-[#363A3D]">
                     <TableHead className="text-white font-title2 p-5">Book Title</TableHead>
                     <TableHead className="text-white font-title2">User Email</TableHead>
+                    <TableHead className="text-white font-title2">Status</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -75,7 +77,7 @@ const RequestsTable = () => {
                         <TableRow key={i} className="bg-[#131718] hover:bg-[#131718] border-[#363A3D]">
                             <TableCell className="p-5 text-white font-title2">{request.title}</TableCell>
                             <TableCell className="text-white font-title2">{request.email}</TableCell>
-                            <TableCell onClick={() => {handleUpdate(request.title, request.email)}} ><TiTick className="text-green-500 w-10 h-10 cursor-pointer" /></TableCell>
+                            <TableCell className="flex gap-4" onClick={() => {handleUpdate(request.title, request.email)}} ><TiTick className="text-green-500 w-10 h-10 cursor-pointer" /></TableCell>
                         </TableRow>
                     ))
                 }

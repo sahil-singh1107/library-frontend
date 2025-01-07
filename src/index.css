@@ -7,8 +7,32 @@
 
 @layer utilities {
   ::selection {
-    background-color: #f8d07d; 
+    background-color: #f8d07d;
     color: white;
+  }
+
+  .glow-on-hover {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .glow-on-hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: rgba(0, 204, 255, 0.3);
+    filter: blur(8px);
+    opacity: 0;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-on-hover:hover::after {
+    opacity: 0.6;
   }
 }
 

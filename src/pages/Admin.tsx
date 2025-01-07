@@ -47,14 +47,14 @@ const Admin = () => {
                     <div className="flex space-x-4 mb-6 justify-between w-full">
                         <span
                             onClick={() => setActiveSection('books')}
-                            className={`text-white hover:underline focus:underline hover:cursor-pointer ${activeSection === 'books' ? 'font-bold' : ''
+                            className={`text-white font-title2 hover:underline focus:underline hover:cursor-pointer ${activeSection === 'books' ? 'font-bold' : ''
                                 }`}
                         >
                             Books
                         </span>
                         <span
                             onClick={() => setActiveSection('requests')}
-                            className={`text-white hover:underline focus:underline hover:cursor-pointer ${activeSection === 'requests' ? 'font-bold' : ''
+                            className={`text-white hover:underline font-title2 focus:underline hover:cursor-pointer ${activeSection === 'requests' ? 'font-bold' : ''
                                 }`}
                         >
                             Requests
@@ -68,13 +68,13 @@ const Admin = () => {
                             >
                                 Add Book
                             </Button>
-                            <div className="flex justify-center w-[70%]">
+                            <div className="flex justify-center w-[70%] h-screen">
                                 <BookTable />
                             </div>
                         </div>
                     ) : (
                         <div className="flex flex-col items-center w-full">
-                            <div className="flex justify-center w-[70%]">
+                            <div className="flex justify-center w-[70%] h-screen">
                                 <RequestsTable />
                             </div>
                         </div>

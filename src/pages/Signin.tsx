@@ -131,7 +131,7 @@ const Signin = () => {
                                 <FormItem>
                                     <FormLabel className="form-labels font-title2">Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] " />
+                                        <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] hover:translate-y-[-10%]" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -144,7 +144,7 @@ const Signin = () => {
                                 <FormItem>
                                     <FormLabel className="form-labels font-title2">Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2" />
+                                        <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -153,7 +153,7 @@ const Signin = () => {
                         <Button disabled={isLoading} className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500" type="submit">Submit</Button>
                         <div className="bg-[#363a3d] w-full h-[0.5px]"></div>
                         <div className="flex justify-between">
-                            <span className="text-white hover:underline hover:cursor-pointer" onClick={() => { navigate("/signin") }}>Sign up</span>
+                            <span className="text-white hover:underline hover:cursor-pointer" onClick={() => { navigate("/signup") }}>Sign up</span>
                             <span
                                 className="text-[#24AE7C] hover:underline hover:cursor-pointer"
                                 onClick={() => { setIsDialogOpen(true) }} // Open the dialog on Admin link click

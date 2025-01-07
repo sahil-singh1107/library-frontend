@@ -120,7 +120,7 @@ const BookTable = () => {
                   <TableCell className="text-white font-title2">
                     {book.publicationYear}
                   </TableCell>
-                  <TableCell className="flex gap-4 text-white">
+                  <TableCell className="flex gap-4 text-white items-center mt-1">
                     <span
                       className="text-[#F37877] hover:cursor-pointer"
                       onClick={() => handleDelete(book.title)}

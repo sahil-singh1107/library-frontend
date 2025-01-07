@@ -59,11 +59,11 @@ const UserBooks = () => {
                 }));
                 setBooks(formattedBooks);
             } catch (error) {
-                console.error(error);
+                console.log(error);
             }
         }
         getBooks();
-    }, [token]);
+    }, []);
 
     async function returnBook(title: string) {
         try {
@@ -111,6 +111,7 @@ const UserBooks = () => {
                             <TableHead className="text-white font-title2 p-5">Title</TableHead>
                             <TableHead className="text-white font-title2">Author</TableHead>
                             <TableHead className="text-white font-title2">Publication Year</TableHead>
+                            <TableHead className="text-white font-title2">Return</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

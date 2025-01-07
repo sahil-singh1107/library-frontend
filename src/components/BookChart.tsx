@@ -16,6 +16,8 @@ import {
 import { useEffect, useMemo, useState } from "react"
 import axios from "axios"
 
+const url = import.meta.env.VITE_BOOK_CHART
+
 const chartConfig = {
     books: {
         label: "Books",
@@ -42,7 +44,7 @@ const BookChart = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/getStats");
+                const response = await axios.get(url);
                 setChartData(response.data);
                 console.log(chartData)
             } catch (error) {
