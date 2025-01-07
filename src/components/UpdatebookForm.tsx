@@ -56,7 +56,7 @@ const UpdatebookForm = ({ setIsOpen, selectedBook }: { setIsOpen: any, selectedB
 
         try {
             await axios.put(url, {
-                adminPin: pin,
+                adminPin: "110703",
                 newAuthor: updatedBook.author,
                 newTitle: updatedBook.title,
                 newpublicationYear: updatedBook.publicationYear

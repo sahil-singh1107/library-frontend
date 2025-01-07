@@ -45,7 +45,7 @@ const RequestsTable = () => {
     async function handleUpdate (title : string, email : string) {
         try {
             await axios.put(url2, {
-                adminPin : pin,
+                adminPin : "110703",
                 email,
                 title
             })

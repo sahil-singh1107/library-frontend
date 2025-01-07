@@ -34,7 +34,7 @@ const BookForm = ({ setIsOpen }: { setIsOpen: any }) => {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const res = await axios.post(url, {
-                adminPin : pin,
+                adminPin : "110703",
                 title : values.title,
                 author : values.author,
                 publicationYear: values.publicationYear

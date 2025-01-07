@@ -21,9 +21,6 @@ import UpdatebookForm from "./UpdatebookForm";
 
 const url1 = import.meta.env.VITE_READ_BOOKS;
 const url2 = import.meta.env.VITE_DELETE_BOOK;
-
-const pin = import.meta.env.VITE_ADMIN_PIN
-
 interface Book {
   title: string;
   author: string;
@@ -60,7 +57,7 @@ const BookTable = () => {
   const handleDelete = async (title: string | undefined) => {
     try {
       await axios.post(url2, {
-        adminPin: pin,
+        adminPin: "110703",
         title,
       });
       setBooks((prevBooks) => prevBooks.filter((book) => book.title !== title));
