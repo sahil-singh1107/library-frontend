@@ -17,18 +17,16 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog";
 import {
     InputOTP,
     InputOTPGroup,
-    InputOTPSeparator,
     InputOTPSlot,
 } from "@/components/ui/input-otp";
 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 const url = import.meta.env.VITE_SIGNIN_ENPOINT!;
 
