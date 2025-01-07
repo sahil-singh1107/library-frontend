@@ -1,28 +1,32 @@
 import Display from "@/components/Display"
 import Sidebar from "@/components/Sidebar"
+import { emailState, tokenState } from "@/store/atoms/atoms"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useRecoilState } from "recoil"
 
 const DashBoard = () => {
 
-    const [token, setToken] = useState<string | null>()
-    const [email, setEmail] = useState<string | null>()
-    const [page, setPage] = useState<string>("mybooks");
+    const [token, setToken] = useRecoilState(tokenState)
+    const [email, setEmail] = useRecoilState(emailState)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
-            setToken(localStorage.getItem("token"))
-            setEmail(localStorage.getItem("email"))
+
+      const getToken = localStorage.getItem("token")
+      const getEmail = localStorage.getItem("email")
+        if (getToken && getEmail) {
+            setToken(getToken)
+            setEmail(getEmail)
         }   
         else navigate("/");
     },[])
 
   return (
     <div className="h-screen bg-[#010100] w-full flex ">
-        <Sidebar email={email} setPage={setPage} />
-        <Display page={page} token={token} />
+        <Sidebar  />
+        <Display  />
     </div>
   )
 }
