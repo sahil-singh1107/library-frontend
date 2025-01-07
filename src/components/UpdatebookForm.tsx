@@ -32,7 +32,6 @@ const formSchema = z.object({
 
 const url = import.meta.env.VITE_UPDATE_BOOK
 
-const pin = import.meta.env.VITE_ADMIN_PIN
 
 const UpdatebookForm = ({ setIsOpen, selectedBook }: { setIsOpen: any, selectedBook: Book }) => {
 

@@ -16,7 +16,6 @@ import { useToast } from "@/hooks/use-toast"
 
 const url = import.meta.env.VITE_ADD_BOOK
 
-const pin = import.meta.env.VITE_ADMIN_PIN
 const formSchema = z.object({
     title: z.string().min(2, {
         message: "Title must be at least 2 characters.",

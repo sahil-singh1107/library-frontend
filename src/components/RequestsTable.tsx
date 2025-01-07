@@ -18,8 +18,6 @@ interface Request {
 const url = import.meta.env.VITE_READ_TRANSACTION
 const url2 = import.meta.env.VITE_UPDATE_TRANSACTION
 
-const pin = import.meta.env.VITE_ADMIN_PIN
-
 const RequestsTable = () => {
 
     const [requests, setRequests] = useState<Request[]>([]);
