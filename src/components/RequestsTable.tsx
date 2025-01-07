@@ -62,9 +62,9 @@ const RequestsTable = () => {
     } 
 
     return (
-        <Table className="overflow-y-auto mt-6 border rounded-md">
+        <Table className="mt-6 border rounded-md border-[#363A3D]">
             <TableHeader>
-                <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10]">
+                <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10] border-[#363A3D]">
                     <TableHead className="text-white font-title2 p-5">Book Title</TableHead>
                     <TableHead className="text-white font-title2">User Email</TableHead>
                 </TableRow>
@@ -72,7 +72,7 @@ const RequestsTable = () => {
             <TableBody>
                 {
                     requests.map((request, i) => (
-                        <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
+                        <TableRow key={i} className="bg-[#131718] hover:bg-[#131718] border-[#363A3D]">
                             <TableCell className="p-5 text-white font-title2">{request.title}</TableCell>
                             <TableCell className="text-white font-title2">{request.email}</TableCell>
                             <TableCell onClick={() => {handleUpdate(request.title, request.email)}} ><TiTick className="text-green-500 w-10 h-10 cursor-pointer" /></TableCell>

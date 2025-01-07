@@ -24,7 +24,7 @@ const DashBoard = () => {
     },[])
 
   return (
-    <div className="h-screen bg-[#010100] w-full flex ">
+    <div className="bg-[#010100] w-full flex ">
         <Sidebar  />
         <Display  />
     </div>

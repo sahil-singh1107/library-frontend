@@ -72,6 +72,7 @@ const UserBooks = () => {
                 title,
             });
             toast({
+                variant: "default",
                 title: "Success!",
                 description: "Book successfully returned",
             });
@@ -91,42 +92,45 @@ const UserBooks = () => {
 
     return (
         <div className="mt-4">
-            <div className="flex justify-between p-6">
-                <Input
-                    className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2"
-                    placeholder="Search by title..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Button disabled={true} className="w-[30%] bg-[#1A1C20] border border-[#2F3336]">
-                    <span className="text-white text-sm font-title2">{today}</span>
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                </Button>
-            </div>
-            <Table className="overflow-y-auto mt-6 border rounded-md">
-                <TableHeader>
-                    <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10]">
-                        <TableHead className="text-white font-title2 p-5">Title</TableHead>
-                        <TableHead className="text-white font-title2">Author</TableHead>
-                        <TableHead className="text-white font-title2">Publication Year</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {filteredBooks.map((book, i) => (
-                        <TableRow key={i} className="bg-[#131718] hover:bg-[#131718]">
-                            <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
-                            <TableCell className="text-white font-title2">{book.author}</TableCell>
-                            <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
-                            <TableCell className="text-white font-title2">
-                                <FaBook
-                                    className="text-green-400 cursor-pointer"
-                                    onClick={() => returnBook(book.title)}
-                                />
-                            </TableCell>
+            <div className="flex flex-col p-6">
+                <div className="flex flex-row justify-between">
+                    <Input
+                        className="w-[30%] bg-[#1A1C20] border border-[#2F3336] text-white font-title2"
+                        placeholder="Search by title..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <Button disabled={true} className="w-[30%] bg-[#1A1C20] border border-[#2F3336]">
+                        <span className="text-white text-sm font-title2">{today}</span>
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                </div>
+                <Table className="mt-10 border rounded-md border-[#363A3D]">
+                    <TableHeader>
+                        <TableRow className="bg-[#0C0E10] hover:bg-[#0C0E10] border-[#363A3D]">
+                            <TableHead className="text-white font-title2 p-5">Title</TableHead>
+                            <TableHead className="text-white font-title2">Author</TableHead>
+                            <TableHead className="text-white font-title2">Publication Year</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {filteredBooks.map((book, i) => (
+                            <TableRow key={i} className="bg-[#131718] hover:bg-[#131718] border-[#363A3D]">
+                                <TableCell className="p-5 text-white font-title2">{book.title}</TableCell>
+                                <TableCell className="text-white font-title2">{book.author}</TableCell>
+                                <TableCell className="text-white font-title2">{book.publicationYear}</TableCell>
+                                <TableCell className="text-white font-title2">
+                                    <FaBook
+                                        className="text-green-400 cursor-pointer"
+                                        onClick={() => returnBook(book.title)}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+
         </div>
     );
 };
