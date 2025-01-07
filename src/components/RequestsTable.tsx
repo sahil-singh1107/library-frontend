@@ -49,13 +49,13 @@ const RequestsTable = () => {
             })
             toast({
                 variant: "default",
-                value : "Request approved successfully",
+                title : "Request approved successfully",
                 description: "User can now access the book"
             })
         } catch (error) {
             toast({
                 variant : "destructive",
-                value: "Couldn't approve request"
+                title: "Couldn't approve request"
             })
             console.log(error);
         }

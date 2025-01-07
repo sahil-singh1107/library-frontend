@@ -62,13 +62,13 @@ const UpdatebookForm = ({ setIsOpen, selectedBook }: { setIsOpen: any, selectedB
             })
             toast({
                 variant: "default",
-                value: "Book updated successfully",
+                title: "Book updated successfully",
             });
         } catch (error) {
             console.log(error);
             toast({
                 variant: "destructive",
-                value: "Book was not updated"
+                title: "Book was not updated"
             })
         }
         setIsOpen(false)
