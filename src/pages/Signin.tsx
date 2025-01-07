@@ -26,7 +26,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import {  useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const url = import.meta.env.VITE_SIGNIN_ENPOINT!;
 
@@ -118,18 +118,29 @@ const Signin = () => {
                 </DialogContent>
             </Dialog>
 
-            <div className="bg-[#010100] min-h-screen flex flex-col space-y-10 items-center justify-center">
-                <span className="text-white font-title2 font-semibold text-3xl typing-effect transition duration-75">Enter your details to Login</span>
+            <div className="bg-[#010100] min-h-screen flex flex-col items-center justify-center space-y-10 w-full text-center">
+                <span className="text-white font-title2 font-semibold text-3xl typing-effect transition duration-75">
+                    Enter your details to Login
+                </span>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-[35%] p-4">
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4 w-[35%] p-4"
+                    >
                         <FormField
                             control={form.control}
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="form-labels font-title2">Email</FormLabel>
+                                    <FormLabel className="form-labels font-title2">
+                                        Email
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="johndoe@gmail.com" {...field} className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] hover:translate-y-[-10%]" />
+                                        <Input
+                                            placeholder="johndoe@gmail.com"
+                                            {...field}
+                                            className="bg-[#1A1C20] text-white font-title2 border-[#363a3d] hover:translate-y-[-10%]"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -140,21 +151,42 @@ const Signin = () => {
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="form-labels font-title2">Password</FormLabel>
+                                    <FormLabel className="form-labels font-title2">
+                                        Password
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="" {...field} className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]" />
+                                        <Input
+                                            placeholder=""
+                                            {...field}
+                                            className="bg-[#1A1C20] text-white border-[#363A3D] font-title2 hover:translate-y-[-10%]"
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-                        <Button disabled={isLoading} className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500" type="submit">Submit</Button>
+                        <Button
+                            disabled={isLoading}
+                            className="w-full text-white bg-yellow-500 font-title2 hover:bg-yellow-500"
+                            type="submit"
+                        >
+                            Submit
+                        </Button>
                         <div className="bg-[#363a3d] w-full h-[0.5px]"></div>
                         <div className="flex justify-between">
-                            <span className="text-white hover:underline hover:cursor-pointer" onClick={() => { navigate("/signup") }}>Sign up</span>
+                            <span
+                                className="text-white hover:underline hover:cursor-pointer"
+                                onClick={() => {
+                                    navigate("/signup");
+                                }}
+                            >
+                                Sign up
+                            </span>
                             <span
                                 className="text-[#24AE7C] hover:underline hover:cursor-pointer"
-                                onClick={() => { setIsDialogOpen(true) }} // Open the dialog on Admin link click
+                                onClick={() => {
+                                    setIsDialogOpen(true);
+                                }} // Open the dialog on Admin link click
                             >
                                 Admin
                             </span>
@@ -162,6 +194,7 @@ const Signin = () => {
                     </form>
                 </Form>
             </div>
+
         </>
     );
 };
